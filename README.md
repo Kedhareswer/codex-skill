@@ -44,7 +44,7 @@ codex --version
 Open Claude Code and paste:
 
 ```
-Install the codex skill from https://github.com/YOUR_USERNAME/codex-skill
+Install the codex skill from https://github.com/Kedhareswer/codex-skill
 — copy skills/codex/SKILL.md to ~/.claude/skills/codex/SKILL.md
 ```
 
@@ -55,13 +55,13 @@ Claude will fetch the file and install it automatically.
 ```bash
 mkdir -p ~/.claude/skills/codex
 curl -o ~/.claude/skills/codex/SKILL.md \
-  https://raw.githubusercontent.com/YOUR_USERNAME/codex-skill/main/skills/codex/SKILL.md
+  https://raw.githubusercontent.com/Kedhareswer/codex-skill/main/skills/codex/SKILL.md
 ```
 
 ### Option 3 — Clone
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/codex-skill
+git clone https://github.com/Kedhareswer/codex-skill
 cp -r codex-skill/skills/codex ~/.claude/skills/codex
 ```
 
@@ -102,13 +102,13 @@ To get the latest version:
 
 ```bash
 curl -o ~/.claude/skills/codex/SKILL.md \
-  https://raw.githubusercontent.com/YOUR_USERNAME/codex-skill/main/skills/codex/SKILL.md
+  https://raw.githubusercontent.com/Kedhareswer/codex-skill/main/skills/codex/SKILL.md
 ```
 
 Or tell Claude:
 
 ```
-Update my codex skill from https://github.com/YOUR_USERNAME/codex-skill
+Update my codex skill from https://github.com/Kedhareswer/codex-skill
 ```
 
 ---
