@@ -129,6 +129,35 @@ Drop one in your repo and every Codex run automatically respects it — no need 
 
 ---
 
+## The full loop — meet claude-skill
+
+This repo handles **Claude → Codex**. There's a companion skill that closes the other direction.
+
+**[claude-skill](https://github.com/Kedhareswer/claude-skill)** lets Codex call Claude on demand — from inside a Codex session. Same idea, reversed.
+
+Install both and you get a real two-way bridge:
+
+```
+Claude  ──→  Codex     (this skill — delegate execution to Codex)
+Codex   ──→  Claude    (claude-skill — escalate planning to Claude)
+```
+
+With claude-skill installed in Codex, you get seven slash commands inside any Codex session:
+
+| Command | What it does |
+|---|---|
+| `/claude-plan` | Architecture and phased implementation planning |
+| `/claude-spec` | Decision-complete implementation specs |
+| `/claude-review` | Code review with risk assessment |
+| `/claude-debug` | Structured root-cause analysis |
+| `/claude-exec` | Explicit work execution by Claude |
+| `/claude-resume` | Continue an existing Claude thread |
+| `/claude-config` | Check installation and configuration |
+
+Install it: [github.com/Kedhareswer/claude-skill](https://github.com/Kedhareswer/claude-skill)
+
+---
+
 ## Repo
 
 ```
