@@ -1,8 +1,10 @@
 # codex-skill
 
-**Let your Claude handle your Codex.**
+**Stop switching terminals. Let Claude run your Codex.**
 
-A Claude Code skill that bridges the two best coding AI CLIs — so you stop switching terminals and start shipping.
+You're already in Claude. You've got a plan. Now you just want Codex to execute it — without opening a second terminal, re-typing model names, or losing your context.
+
+This skill makes that happen. One conversation. Both tools.
 
 ---
 
@@ -10,13 +12,13 @@ A Claude Code skill that bridges the two best coding AI CLIs — so you stop swi
 
 ![before-after](./before-after.gif)
 
-Two great tools. No bridge between them.
+You love both. Using both manually is painful.
 
-**Codex CLI alone** — great model, barebones harness. Re-approves the same commands every run. Paranoid sandbox. No plan mode, no skills, no MCP.
+**Codex CLI** — precise, disciplined executor. But barebones. You're re-approving the same commands every run, guessing flags, losing context the moment you switch windows.
 
-**Claude Code alone** — best orchestrator in the space. But token costs spiral, no cross-session memory, and no native path to disciplined execution.
+**Claude Code** — best orchestrator alive. But expensive at scale, and there's no native path to hand off execution to something more focused.
 
-**Using both manually** — two terminals, re-typing model names and flags every time, context lost between them.
+**Using both without a bridge?** Two terminals. Re-typing model names. Context gone every time you switch. Every. Single. Time.
 
 ---
 
@@ -24,75 +26,88 @@ Two great tools. No bridge between them.
 
 ![demo](./demo.gif)
 
-Install this skill. Claude reads your Codex config, shows you an interactive selector for model and reasoning effort, builds the right command, and runs it — all without leaving your conversation.
+Install this skill and just say what you want. Claude reads your Codex config, pops up a model + reasoning selector, builds the exact command, runs it — and then asks if you want it to act on what Codex found.
 
 ```
 you  →  Claude  →  Codex CLI  →  your codebase
-        plans       executes
+        plans       executes       gets better
 ```
 
+No flags to remember. No terminal switching. No re-explaining context.
+
 ---
 
-## What Claude handles
+## What Claude handles for you
 
 - Reads `~/.codex/config.toml` live — never hardcodes a model name
-- Interactive `AskUserQuestion` selector for model + reasoning effort on every run
-- Builds the exact `codex exec` command with correct flags
-- Auto-picks sandbox mode based on task type
-- Relays Codex output verbatim
-- Resumes sessions with `--last` or by ID
-- Always confirms before `danger-full-access`
+- Shows an interactive selector for model + reasoning effort before every run
+- Picks the right sandbox automatically (`read-only` for analysis, `workspace-write` for edits)
+- Captures errors and tells you exactly what went wrong (no silent failures)
+- Injects project context — repo name, branch, working directory — into every Codex prompt
+- Relays output verbatim, then asks "Want me to fix these?" to close the loop
+- Resumes sessions with `--last` or by ID when you want to continue where Codex left off
+- Always confirms before touching anything with `danger-full-access`
 
 ---
 
-## Quick comparison
+## How it feels to use
+
+Just talk to Claude the way you normally do. The skill activates on anything that sounds like Codex work:
+
+| You say | What happens |
+|---------|-------------|
+| `use Codex to analyze src/App.tsx` | Model selector → analysis, `read-only` sandbox |
+| `have Codex refactor the auth module` | Model selector → edits, `workspace-write` sandbox |
+| `let Codex do a security audit on src/api/` | Runs OWASP-style analysis, offers to fix findings |
+| `send this to Codex with high reasoning` | Skips to effort selector, deep analysis |
+| `resume the last Codex session` | `codex exec resume --last`, picks up right where you left off |
+
+No magic words required — Claude will recognize "use Codex", "run Codex", "let Codex", "have Codex", "send to Codex", and more.
+
+---
+
+## Claude vs Codex — why you want both
 
 | | Claude Code | Codex CLI |
 |---|---|---|
-| Best for | Planning, orchestration | Execution, precision |
-| Harness | Rich — skills, MCP, plan mode | Barebones |
-| Token cost | $6–65/session | Lighter |
-| Stays on task | Sometimes drifts | Rarely drifts |
+| Best at | Planning, orchestration, big picture | Focused execution, precise edits |
+| Tooling | Rich — skills, MCP, plan mode | Barebones by design |
+| Token cost | Higher at scale | Leaner |
+| Stays on task | Can drift | Rarely drifts |
 | Open source | No | Apache 2.0 |
-| Community verdict | Best orchestrator | Best executor |
+| Sweet spot | Thinking through the problem | Executing the solution |
+
+Together they're better than either alone. This skill is the bridge.
 
 ---
 
 ## Install
 
-**Option 1 — tell Claude:**
+**The lazy way — just tell Claude:**
 ```
 Install the codex skill from https://github.com/Kedhareswer/codex-skill
 ```
+Claude will handle it.
 
-**Option 2 — one-liner:**
+**One-liner:**
 ```bash
 mkdir -p ~/.claude/skills/codex && curl -o ~/.claude/skills/codex/SKILL.md \
   https://raw.githubusercontent.com/Kedhareswer/codex-skill/main/skills/codex/SKILL.md
 ```
 
-**Option 3 — clone:**
+**Clone and copy:**
 ```bash
 git clone https://github.com/Kedhareswer/codex-skill
 cp -r codex-skill/skills/codex ~/.claude/skills/codex
 ```
 
-**Verify:** Tell Claude `use Codex to say hello` — if the selector appears and Codex responds, you're live.
-
----
-
-## Usage examples
-
-| You say | What happens |
-|---------|-------------|
-| `use Codex to analyze src/App.tsx` | Selector → analysis with `read-only` |
-| `use Codex to refactor the auth module` | Selector → edits with `workspace-write` |
-| `run a Codex security audit on src/api/` | Auto `read-only` → OWASP findings |
-| `resume the last Codex session` | `codex exec resume --last` |
+**Verify it's working:** Tell Claude `use Codex to say hello` — the model selector should appear and Codex should respond. If it does, you're live.
 
 ---
 
 ## Prerequisites
+
+You'll need both CLIs installed and authenticated:
 
 ```bash
 claude --version && codex --version && codex login
@@ -103,11 +118,22 @@ claude --version && codex --version && codex login
 
 ---
 
+## Keeping it up to date
+
+```bash
+curl -o ~/.claude/skills/codex/SKILL.md \
+  https://raw.githubusercontent.com/Kedhareswer/codex-skill/main/skills/codex/SKILL.md
+```
+
+Or just tell Claude: `update my codex skill`.
+
+---
+
 ## Repo
 
 ```
 codex-skill/
-├── skills/codex/SKILL.md     ← install this
+├── skills/codex/SKILL.md     ← the only file you need
 ├── demo.gif
 ├── before-after.gif
 └── README.md
@@ -115,15 +141,18 @@ codex-skill/
 
 ---
 
-## Update
+## Thoughts, issues, ideas?
 
-```bash
-curl -o ~/.claude/skills/codex/SKILL.md \
-  https://raw.githubusercontent.com/Kedhareswer/codex-skill/main/skills/codex/SKILL.md
-```
+This is a living skill — it'll get better as Codex and Claude both evolve.
+
+If something doesn't work the way you expect, **open an issue** — even a one-liner like "the selector didn't appear when I said X" is enough to go on.
+
+If you have an idea for how the skill should behave differently, **open a discussion or PR**. The SKILL.md is just a markdown file — contributions are easy.
+
+And if this saved you even one terminal switch today — **please star the repo.** It genuinely helps.
 
 ---
 
-MIT License — [Kedhareswer](https://github.com/Kedhareswer)
+MIT License — built by [Kedhareswer](https://github.com/Kedhareswer)
 
-> If this saved you time — star the repo.
+> Two great tools. One conversation. Go ship something.
