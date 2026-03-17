@@ -108,9 +108,6 @@ claude --version && codex --version && codex login
 ```
 codex-skill/
 ├── skills/codex/SKILL.md     ← install this
-├── demo/src/
-│   ├── CodexSkillDemo.tsx    ← demo.gif source
-│   └── BeforeAfter.tsx       ← before-after.gif source
 ├── demo.gif
 ├── before-after.gif
 └── README.md
