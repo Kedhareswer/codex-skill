@@ -47,6 +47,8 @@ No flags to remember. No terminal switching. No re-explaining context.
 - Relays output verbatim, then asks "Want me to fix these?" to close the loop
 - Resumes sessions with `--last` or by ID when you want to continue where Codex left off
 - Always confirms before touching anything with `danger-full-access`
+- Enables experimental multi-agent mode (`--enable multi_agent`) for parallel workstreams
+- Suggests `AGENTS.md` setup for project-level Codex instructions
 
 ---
 
@@ -58,9 +60,10 @@ Just talk to Claude the way you normally do. The skill activates on anything tha
 |---------|-------------|
 | `use Codex to analyze src/App.tsx` | Model selector → analysis, `read-only` sandbox |
 | `have Codex refactor the auth module` | Model selector → edits, `workspace-write` sandbox |
-| `let Codex do a security audit on src/api/` | Runs OWASP-style analysis, offers to fix findings |
-| `send this to Codex with high reasoning` | Skips to effort selector, deep analysis |
+| `let Codex do a security audit on src/api/` | Runs analysis, offers to fix findings |
+| `send this to Codex with high reasoning` | Deep analysis with extended thinking |
 | `resume the last Codex session` | `codex exec resume --last`, picks up right where you left off |
+| `use Codex with subagents to audit all files` | Enables `multi_agent` mode for parallel analysis |
 
 No magic words required — Claude will recognize "use Codex", "run Codex", "let Codex", "have Codex", "send to Codex", and more.
 
@@ -114,18 +117,15 @@ claude --version && codex --version && codex login
 ```
 
 - [Install Claude Code](https://docs.anthropic.com/claude-code)
-- [Install Codex CLI](https://github.com/openai/codex)
+- [Install Codex CLI](https://github.com/openai/codex) — `npm i -g @openai/codex`
 
 ---
 
-## Keeping it up to date
+## Optional: AGENTS.md
 
-```bash
-curl -o ~/.claude/skills/codex/SKILL.md \
-  https://raw.githubusercontent.com/Kedhareswer/codex-skill/main/skills/codex/SKILL.md
-```
+Codex reads `AGENTS.md` files from your project root (and `~/.codex/AGENTS.md` globally) to pick up project-specific instructions — coding conventions, test commands, forbidden patterns, and more.
 
-Or just tell Claude: `update my codex skill`.
+Drop one in your repo and every Codex run automatically respects it — no need to re-explain context in every prompt.
 
 ---
 
@@ -141,15 +141,26 @@ codex-skill/
 
 ---
 
-## Thoughts, issues, ideas?
+## Keeping it up to date
 
-This is a living skill — it'll get better as Codex and Claude both evolve.
+```bash
+curl -o ~/.claude/skills/codex/SKILL.md \
+  https://raw.githubusercontent.com/Kedhareswer/codex-skill/main/skills/codex/SKILL.md
+```
 
-If something doesn't work the way you expect, **open an issue** — even a one-liner like "the selector didn't appear when I said X" is enough to go on.
+Or just tell Claude: `update my codex skill`.
 
-If you have an idea for how the skill should behave differently, **open a discussion or PR**. The SKILL.md is just a markdown file — contributions are easy.
+---
 
-And if this saved you even one terminal switch today — **please star the repo.** It genuinely helps.
+## If something feels off
+
+This is a living skill — it evolves as Codex and Claude both do.
+
+If the selector didn't appear, a sandbox was wrong, or Codex ran something it shouldn't have — **open an issue**. Even a one-liner is enough to go on.
+
+Ideas for how the skill should behave differently? **Open a discussion or PR**. The `SKILL.md` is just a markdown file — contributions take minutes.
+
+And if this saved you even one terminal switch today — **please star the repo.** It genuinely helps others find it, and it motivates keeping it sharp.
 
 ---
 
